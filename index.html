@@ -28,7 +28,7 @@
     <div class="wrapper">
       <header>
 
-        <img src="assets/img/passport-new.JPG" alt=""><br><br>
+        <img src="assets/img/passport-new.JPG" alt="Me!" title="Me!"><br><br>
 
         <h1>Blaise A. Rettig</h1>
         
@@ -77,7 +77,7 @@
   
 
           <div class="experience-item">
-            <img src="assets/img/rlfye_logo.png">
+            <img src="assets/img/rlfye_logo.png" alt="RLFYE logo" title="RLFYE logo">
             <div class="experience-content">
                 <div class="experience-header">
                     <h3>Software Engineer Intern</h3>
@@ -90,7 +90,7 @@
         </div>
 
         <div class="experience-item">
-          <img src="assets/img/rlfye_logo.png">
+          <img src="assets/img/rlfye_logo.png" alt="RLFYE logo" title="RLFYE logo">
           <div class="experience-content">
               <div class="experience-header">
                   <h3>Resident Advisor</h3>
@@ -103,7 +103,7 @@
       </div>
 
       <div class="experience-item">
-        <img src="assets/img/king_county_sheriff_s_office_logo.jpg">
+        <img src="assets/img/king_county_sheriff_s_office_logo.jpg" alt="KCSO logo" title="KCSO logo">
         <div class="experience-content">
             <div class="experience-header">
                 <h3>Deputy Sheriff Intern</h3>
@@ -121,7 +121,7 @@
         <h1>Projects</h1>
 
         <div class="project-item" onclick="openModal('C2', ['assets/img/C2_PREVIEW_1.png', 'assets/img/C2_PREVIEW_2.png', 'assets/img/C2_PREVIEW_3.png', 'assets/img/C2_DEMO.gif'])">
-            <img src="assets/img/C2_LOGO.png">
+            <img src="assets/img/C2_LOGO.png" alt="C2 logo" title="C2 logo">
             <div class="project-content">
                 <div class="project-header">
                     <h3>C2</h3>
@@ -136,7 +136,7 @@
         </div>
 
         <div class="project-item" onclick="openModal('Banish The Light', ['assets/img/BTL_PREVIEW_1.png', 'assets/img/BTL_PREVIEW_2.PNG', 'assets/img/BTL_PREVIEW_3.PNG', 'assets/img/BTL_PREVIEW_4.png', 'assets/img/BTL_PREVIEW_5.png'])">
-            <img src="assets/img/BTL_LOGO.png">
+            <img src="assets/img/BTL_LOGO.png" alt="BTL logo" title="BTL logo">
             <div class="project-content">
                 <div class="project-header">
                     <h3>Banish The Light</h3>
@@ -150,7 +150,7 @@
         </div>
 
         <div class="project-item" onclick="openModal('Wildlands', ['assets/img/WILDLANDS_PREVIEW_1.png', 'assets/img/WILDLANDS_PREVIEW_2.png', 'assets/img/WILDLANDS_PREVIEW_3.png'])">
-          <img src="assets/img/WILDLANDS_LOGO.png">
+          <img src="assets/img/WILDLANDS_LOGO.png" alt="Wildlands logo" title="Wildlands logo">
           <div class="project-content">
               <div class="project-header">
                   <h3>Wildlands</h3>
@@ -163,7 +163,7 @@
       </div>
 
       <div class="project-item" onclick="openModal('MagLevs', ['assets/img/MAGLEV_PREVIEW_1.png', 'assets/img/MAGLEV_PREVIEW_2.png', 'assets/img/MAGLEV_PREVIEW_3.png'])">
-        <img src="assets/img/MAGLEV_LOGO.png">
+        <img src="assets/img/MAGLEV_LOGO.png" alt="Maglevs logo" title="Maglevs logo">
         <div class="project-content">
             <div class="project-header">
                 <h3>MagLevs</h3>
@@ -213,6 +213,8 @@
           images.forEach((img, index) => {
               const thumb = document.createElement("img");
               thumb.src = img;
+              thumb.alt = title;
+              thumb.title = title;
               thumb.classList.add("thumbnail");
               if (index === 0) thumb.classList.add("active");
 
@@ -272,7 +274,7 @@
           <h1>Education</h1>
 
           <div class="education-item">
-            <img src="assets/img/chapman_university_logo.jpg">
+            <img src="assets/img/chapman_university_logo.jpg" alt="Chapman logo" title="Chapman logo">
             <div class="education-content">
                 <h3>Bachelor of Science in Computer Science</h3>
                 <h4>Chapman University</h4>
