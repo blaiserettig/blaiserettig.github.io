@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group18 Language Docs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <style>
+        body {
+            /* Ensure persistent logic sets this, but defaults here */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .docs-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .docs-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .docs-section {
+            margin-bottom: 40px;
+        }
+
+        .docs-section h2 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            color: var(--code-text);
+            border: 1px solid var(--border);
+        }
+
+        pre {
+            background: var(--code-bg);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+
+        pre code {
+            border: none;
+            padding: 0;
+            background: transparent;
+        }
+
+        .grammar-block {
+            background: var(--surface-alt);
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="docs-container">
+        <header class="docs-header">
+            <h1>Group18 Language Documentation</h1>
+            <p>A statically typed, C-like language compiling to WebAssembly.</p>
+            <p><a href="g18_demo.html">Back to Demo</a></p>
+        </header>
+
+        <section class="docs-section">
+            <h2>Introduction</h2>
+            <p><strong>Group18 (g18)</strong> is a minimal, educational programming language implemented in Rust that
+                compiles to x86-64 assembly. It demonstrates the complete pipeline of language implementation, from
+                lexical analysis to code generation.</p>
+            <p>While the native compiler targets x64 NASM assembly, this online demo compiles to WebAssembly (WASM) to
+                run directly in your browser.</p>
+            <p><strong>Information on this page is sparse and not all-encompassing.</strong> Further reading is
+                available and encouraged at the project's repository <a
+                    href="https://github.com/blaiserettig/Group18">here</a>.</p>
+        </section>
+
+        <section class="docs-section">
+            <h2>Language Rules</h2>
+            <div class="grammar-block" style="border-left-color: var(--accent);">
+                <ul>
+                    <li><strong>Entry Point:</strong> The entry point of every program is the <code>main()</code>
+                        function. It is not strictly required that <code>main()</code> returns a specific type, or even
+                        that it returns something at all.</code></li>
+                    <li><strong>Function Declaration:</strong> Functions must be declared <em>before</em> they are
+                        called (similar to C protos).</li>
+                    <li><strong>Scoping:</strong> There is <strong>no variable shadowing</strong> allowed. Variable
+                        names must be unique within their accessible scope.</li>
+                    <li><strong>Typing:</strong> Static strong typing is enforced.</li>
+                    <li><strong>Comments:</strong> Comments are not supported and provided here as illustrative
+                        examples only.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="docs-section">
+            <h2>Syntax Guide</h2>
+
+            <h3>Program Structure</h3>
+            <p>A typical Group18 program consists of function definitions, ending with a <code>main</code> function.</p>
+            <pre><code>fn add(i32s a, i32s b) -> i32s {
+    return a + b;
+}
+
+fn main() -> i32s {
+    i32s result = add(5, 10);
+    print(result);
+    return 0;
+}</code></pre>
+
+            <h3>Control Structures</h3>
+            <pre><code>
+for i in 0 to 10 { // Exclusive upper bound
+    // Loop body
+}
+
+if x > 5 {
+    print("Greater");
+} else if x == 5 {
+    print("Equal");
+} else {
+    print("Smaller");
+}</code></pre>
+
+            <h3>Data Types</h3>
+            <ul>
+                <li><code>i32s</code>: Signed 32-bit integer (e.g., <code>42</code>, <code>-10</code>)</li>
+                <li><code>f32s</code>: 32-bit floating point (e.g., <code>3.14</code>)</li>
+                <li><code>bool</code>: Boolean (<code>true</code>, <code>false</code>)</li>
+                <li><code>char</code>: Single character (<code>'a'</code>)</li>
+                <li><code>string</code>: Text string (<code>"Hello"</code>)</li>
+                <li><code>void</code>: No return value</li>
+            </ul>
+        </section>
+    </div>
+
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Initial Theme Check (default to dark)
+        if (localStorage.getItem('theme') !== 'light') {
+            body.classList.add('dark-mode');
+            themeBtn.textContent = '☀️';
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeBtn.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeBtn.textContent = '🌙';
+            }
+        });
+    </script>
+</body>
+
+</html>

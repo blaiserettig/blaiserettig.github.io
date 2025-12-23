@@ -12,26 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/styles.css">
     <style>
-        :root {
-            --bg: #ffffff;
-            --surface: #f4f4f4;
-            --primary: #5d8fff;
-            --accent: #238636;
-            --text: #595959;
-            --text-dim: #888;
-            --border: #e5e5e5;
-            --code-bg: #f8f8f8;
-
-            /* Syntax Highlighting Colors - Adapted for Light Theme */
-            --syn-kw: #333333;
-            /* Bold in logic */
-            --syn-type: #445588;
-            --syn-str: #d14;
-            --syn-num: #009999;
-            --syn-atom: #008080;
-            --syn-comment: #999988;
-            --syn-fn: #990000;
-        }
+        /* Syntax color variables are now inherited from styles.css :root and .dark-mode */
 
         * {
             box-sizing: border-box;
@@ -59,17 +40,15 @@
         header {
             width: 100%;
             position: static;
-            /* Override fixed header from styles.css */
             float: none;
             padding: 1rem 2rem;
             background: var(--surface);
             border-bottom: 1px solid var(--border);
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            justify-content: space-between;
             flex-shrink: 0;
             height: auto;
-            /* Override fixed height */
         }
 
         header ul {
@@ -80,8 +59,37 @@
         .logo {
             font-weight: 700;
             font-size: 1.2rem;
-            color: #222;
-            /* Darker heading color from styles */
+            color: var(--heading);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-self: start;
+        }
+
+        .learn-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 24px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: all 0.3s ease;
+            justify-self: center;
+            line-height: 1;
+        }
+
+        .learn-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--shadow);
+            border-color: var(--primary);
+            /* subtle highlight on hover */
         }
 
         main {
@@ -94,10 +102,27 @@
 
         .output-container {
             height: 200px;
+            min-height: 100px;
+            max-height: 80vh;
             display: flex;
             flex-direction: column;
             background: var(--bg);
             flex-shrink: 0;
+            position: relative;
+        }
+
+        .resize-handle {
+            height: 5px;
+            background: var(--border);
+            cursor: ns-resize;
+            width: 100%;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .resize-handle:hover,
+        .resize-handle.active {
+            background: var(--primary);
         }
 
         .console {
@@ -105,7 +130,7 @@
             padding: 1rem;
             font-family: 'Fira Code', monospace;
             font-size: 13px;
-            color: #333;
+            color: var(--code-text);
             overflow-y: auto;
             white-space: pre-wrap;
             border-top: 1px solid var(--border);
@@ -121,7 +146,7 @@
 
         .pane-header {
             padding: 0.5rem 1rem;
-            background: #fafafa;
+            background: var(--surface-alt);
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
@@ -172,8 +197,7 @@
         #editor-textarea {
             background: transparent;
             color: transparent;
-            caret-color: #000;
-            /* Black caret for light theme */
+            caret-color: var(--code-text);
             z-index: 2;
             resize: none;
             border: none;
@@ -182,7 +206,7 @@
 
         #editor-highlight {
             z-index: 1;
-            color: #333;
+            color: var(--code-text);
             pointer-events: none;
             background: transparent;
         }
@@ -223,7 +247,7 @@
         pre#output {
             margin: 0;
             padding: 1.5rem;
-            color: #333;
+            color: var(--code-text);
             font-family: 'Fira Code', monospace;
             font-size: 14px;
             line-height: 1.6;
@@ -260,48 +284,93 @@
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: white;
+            background: #238636;
+            /* Green for Run */
+            color: #fff;
         }
 
-        .btn-primary:hover {
-            background: #31a1ae;
-            /* Match link hover color or similar */
+        .btn-primary:active {
+            background: #1a6328;
         }
 
         .btn-run {
             background: #e2b714;
+            /* Yellow for Compile */
             color: #000;
         }
 
+        .btn-run:active {
+            background: #c5a012;
+        }
+
         .btn-secondary {
-            background: #fff;
+            background: var(--surface-alt);
             border: 1px solid var(--border);
             color: var(--text);
         }
 
         .btn-secondary:hover {
-            background: #f0f0f0;
+            background: var(--border);
+        }
+
+        /* Specific overrides */
+        #compile-btn {
+            background: #e2b714;
+            /* Yellow */
+            color: #000;
+        }
+
+        #compile-btn:active {
+            background: #c5a012;
+        }
+
+        #run-btn {
+            background: #238636;
+            /* Green */
+            color: #fff;
+        }
+
+        #run-btn:active {
+            background: #1a6328;
+        }
+
+        #reset-btn {
+            /* Will attach btn-secondary class but maybe a specific color if desired, currently using secondary */
+            background: #d64040;
+            /* Reddish for reset? User just said "different base color" */
+            color: #fff;
+            border: none;
+        }
+
+        #reset-btn:hover {
+            background: #b53535;
         }
 
         button:hover {
             opacity: 0.9;
             transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         .status {
             font-size: 0.8rem;
             color: var(--text-dim);
-            margin-left: auto;
+            /* Remove margin-left: auto so we rely on space-between */
             align-self: center;
+            justify-self: end;
         }
 
         /* Dropdown styling */
+        /* Dropdown styling */
         select {
-            background: #fff !important;
+            background: var(--surface) !important;
             color: var(--text) !important;
             border: 1px solid var(--border) !important;
+            cursor: pointer;
+        }
+
+        select:hover {
+            border-color: var(--primary) !important;
         }
     </style>
 </head>
@@ -309,6 +378,7 @@
 <body>
     <header>
         <div class="logo">Group18 Compiler</div>
+        <a href="g18_docs.html" target="_blank" class="learn-btn" aria-label="Documentation">❓</a>
         <div class="status" id="status">WASM Loading...</div>
     </header>
 
@@ -348,7 +418,8 @@
         </div>
     </main>
 
-    <div class="output-container">
+    <div class="resize-handle" id="resize-handle"></div>
+    <div class="output-container" id="output-container">
         <div class="pane-header">Console Output</div>
         <div class="console" id="console">> Welcome to Group18 Compiler.</div>
     </div>
@@ -356,8 +427,10 @@
     <div class="controls">
         <button class="btn-primary" id="compile-btn">Compile to ASM</button>
         <button class="btn-run" id="run-btn">Run Program</button>
-        <button class="btn-secondary" onclick="resetCode()">Reset</button>
+        <button class="btn-secondary" id="reset-btn" onclick="resetCode()">Reset</button>
     </div>
+
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
 
     <script type="module">
         import init, { compile_g18, compile_wat_g18, compile_wasm_g18 } from './pkg/Group18.js';
@@ -369,6 +442,57 @@
         const compileBtn = document.getElementById('compile-btn');
         const runBtn = document.getElementById('run-btn');
         const toggleBtn = document.getElementById('toggle-view');
+
+        // Theme Toggle Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check local storage (default to dark)
+        if (localStorage.getItem('theme') !== 'light') {
+            body.classList.add('dark-mode');
+            themeBtn.textContent = '☀️';
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeBtn.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeBtn.textContent = '🌙';
+            }
+        });
+
+        // Console Resize Logic
+        const handle = document.getElementById('resize-handle');
+        const outputContainer = document.getElementById('output-container');
+        let isResizing = false;
+
+        handle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            handle.classList.add('active');
+            document.body.style.cursor = 'ns-resize';
+            e.preventDefault(); // Prevent text selection
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            const containerHeight = window.innerHeight - e.clientY;
+            // Enforce min/max constraints
+            if (containerHeight > 100 && containerHeight < (window.innerHeight - 100)) {
+                outputContainer.style.height = `${containerHeight}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                handle.classList.remove('active');
+                document.body.style.cursor = '';
+            }
+        });
 
         let currentView = 'asm';
         let moduleMemory = null;

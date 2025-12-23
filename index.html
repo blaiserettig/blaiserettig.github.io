@@ -34,7 +34,7 @@
 
             <h1>Blaise A. Rettig</h1>
 
-            <p style="color:#000000">A <span class="typing" style="font-weight: 300; color:#5d8fff;"></span></p>
+            <p>A <span class="typing" style="font-weight: 300; color:#5d8fff;"></span></p>
 
             <script src="assets/vendor/typed.js/typed.min.js"></script>
             <script type="text/javascript">
@@ -56,11 +56,7 @@
             <p class="view"><a href="assets\resume\Rettig_Blaise_Resume.pdf" target="_blank" class="resume-link">Resume
                     / CV<small>Opens in a new tab</small></a></p>
 
-            <!--         <ul>
-          <li><a href="https://github.com/orderedlist/minimal/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/orderedlist/minimal/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="http://github.com/orderedlist/minimal">Fork On <strong>GitHub</strong></a></li>
-        </ul> -->
+
         </header>
         <section>
 
@@ -334,6 +330,30 @@
                         href="https://github.com/orderedlist">orderedlist</a></small></p>
         </footer>
     </div>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check local storage (default to dark)
+        if (localStorage.getItem('theme') !== 'light') {
+            body.classList.add('dark-mode');
+            toggleBtn.textContent = '☀️';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                toggleBtn.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                toggleBtn.textContent = '🌙';
+            }
+        });
+    </script>
     <script src="javascripts/scale.fix.js"></script>
 </body>
 
