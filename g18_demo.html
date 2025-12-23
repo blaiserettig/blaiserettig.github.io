@@ -373,6 +373,73 @@
         select:hover {
             border-color: var(--primary) !important;
         }
+
+        @media (max-width: 768px) {
+            body {
+                height: auto;
+                overflow-y: auto;
+                display: block;
+            }
+
+            header {
+                grid-template-columns: 1fr;
+                grid-gap: 15px;
+                padding: 1rem;
+                height: auto;
+            }
+
+            .logo {
+                width: 100%;
+                justify-content: center;
+                justify-self: center;
+            }
+
+            .learn-btn {
+                justify-self: center;
+            }
+
+            .status {
+                justify-self: center;
+            }
+
+            main {
+                display: block;
+                height: auto;
+                overflow: visible;
+                border-bottom: none;
+            }
+
+            .pane {
+                height: 50vh;
+                min-height: 400px;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .resize-handle {
+                display: none;
+            }
+
+            .output-container {
+                height: 300px;
+                max-height: none;
+                flex-shrink: 0;
+            }
+
+            .controls {
+                position: sticky;
+                bottom: 0;
+                z-index: 100;
+                flex-wrap: wrap;
+                justify-content: center;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            #theme-toggle {
+                bottom: 80px;
+            }
+        }
     </style>
 </head>
 
